@@ -17,11 +17,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		785098801D365ADD00976091 /* BLEDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BLEDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		785098801D365ADD00976091 /* SkiJacket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SkiJacket.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		785098831D365ADD00976091 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		785098851D365ADD00976091 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		785098881D365ADD00976091 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		7850988A1D365ADD00976091 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		7850988A1D365ADD00976091 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../SkiJacket/Assets.xcassets; sourceTree = "<group>"; };
 		7850988D1D365ADD00976091 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7850988F1D365ADD00976091 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		785098951D365E8E00976091 /* ScanTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanTableViewController.swift; sourceTree = "<group>"; };
@@ -43,7 +43,7 @@
 		785098771D365ADD00976091 = {
 			isa = PBXGroup;
 			children = (
-				785098821D365ADD00976091 /* BLEDemo */,
+				785098821D365ADD00976091 /* SkiJacket */,
 				785098811D365ADD00976091 /* Products */,
 				785098971D36607500976091 /* Frameworks */,
 			);
@@ -52,12 +52,12 @@
 		785098811D365ADD00976091 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				785098801D365ADD00976091 /* BLEDemo.app */,
+				785098801D365ADD00976091 /* SkiJacket.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		785098821D365ADD00976091 /* BLEDemo */ = {
+		785098821D365ADD00976091 /* SkiJacket */ = {
 			isa = PBXGroup;
 			children = (
 				785098831D365ADD00976091 /* AppDelegate.swift */,
@@ -68,7 +68,7 @@
 				7850988C1D365ADD00976091 /* LaunchScreen.storyboard */,
 				7850988F1D365ADD00976091 /* Info.plist */,
 			);
-			path = BLEDemo;
+			path = SkiJacket;
 			sourceTree = "<group>";
 		};
 		785098971D36607500976091 /* Frameworks */ = {
@@ -82,9 +82,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		7850987F1D365ADD00976091 /* BLEDemo */ = {
+		7850987F1D365ADD00976091 /* SkiJacket */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 785098921D365ADD00976091 /* Build configuration list for PBXNativeTarget "BLEDemo" */;
+			buildConfigurationList = 785098921D365ADD00976091 /* Build configuration list for PBXNativeTarget "SkiJacket" */;
 			buildPhases = (
 				7850987C1D365ADD00976091 /* Sources */,
 				7850987D1D365ADD00976091 /* Frameworks */,
@@ -94,9 +94,9 @@
 			);
 			dependencies = (
 			);
-			name = BLEDemo;
+			name = SkiJacket;
 			productName = BLEDemo;
-			productReference = 785098801D365ADD00976091 /* BLEDemo.app */;
+			productReference = 785098801D365ADD00976091 /* SkiJacket.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -107,7 +107,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0800;
 				LastUpgradeCheck = 1000;
-				ORGANIZATIONNAME = "Rick Smith";
+				ORGANIZATIONNAME = "Ryan Moll";
 				TargetAttributes = {
 					7850987F1D365ADD00976091 = {
 						CreatedOnToolsVersion = 8.0;
@@ -117,11 +117,12 @@
 					};
 				};
 			};
-			buildConfigurationList = 7850987B1D365ADD00976091 /* Build configuration list for PBXProject "BLEDemo" */;
+			buildConfigurationList = 7850987B1D365ADD00976091 /* Build configuration list for PBXProject "SkiJacket" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -130,7 +131,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				7850987F1D365ADD00976091 /* BLEDemo */,
+				7850987F1D365ADD00976091 /* SkiJacket */,
 			);
 		};
 /* End PBXProject section */
@@ -299,10 +300,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = BLEDemo/Info.plist;
+				INFOPLIST_FILE = SkiJacket/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = RickRedSix.BLEDemo;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = ryanSkiJacket;
+				PRODUCT_NAME = SkiJacket;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.0;
@@ -316,10 +317,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = BLEDemo/Info.plist;
+				INFOPLIST_FILE = SkiJacket/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = RickRedSix.BLEDemo;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = ryanSkiJacket;
+				PRODUCT_NAME = SkiJacket;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.0;
@@ -329,7 +330,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		7850987B1D365ADD00976091 /* Build configuration list for PBXProject "BLEDemo" */ = {
+		7850987B1D365ADD00976091 /* Build configuration list for PBXProject "SkiJacket" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				785098901D365ADD00976091 /* Debug */,
@@ -338,7 +339,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		785098921D365ADD00976091 /* Build configuration list for PBXNativeTarget "BLEDemo" */ = {
+		785098921D365ADD00976091 /* Build configuration list for PBXNativeTarget "SkiJacket" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				785098931D365ADD00976091 /* Debug */,
