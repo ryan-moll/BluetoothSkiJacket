@@ -198,7 +198,16 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
             //data recieved
             if(characteristic.value != nil) {
                 let stringValue = String(data: characteristic.value!, encoding: String.Encoding.utf8)!
-            
+//                print("stringValue: ", stringValue)
+//                var tempString = stringValue.prefix(5)
+//                print("tempString: ", tempString)
+//                var temp = Float(tempString)
+//                temp = ((9 * temp!) / 5) + 32
+//                print("temp: ", temp)
+//                tempString = "\(String(describing: temp))"
+//                print("tempString2: ", tempString)
+//                let ret = String(tempString.prefix(5))
+//                print("ret: ", ret)
                 recievedMessageText.text = stringValue
             }
         }

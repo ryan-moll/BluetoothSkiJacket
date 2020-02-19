@@ -3,4 +3,4 @@
 
 + Tutorial used: https://medium.com/@rickredsix/getting-started-with-ios-swift-and-bluetooth-4-0-for-wearables-hardware-4661b1992bca
 
-+ Arduino Library Modified: https://github.com/purwar2016/ArduinoBlue-library/tree/3.0.1
++ Arduino tools: https://github.com/d-wolf/ArduinoBLETemperature
