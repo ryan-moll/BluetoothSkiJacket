@@ -19,33 +19,31 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message Recieved" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dOR-2c-7DW">
-                                <rect key="frame" x="135.5" y="211" width="143.5" height="20.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Angle" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dOR-2c-7DW">
+                                <rect key="frame" x="185" y="148" width="44" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RzW-4l-oYQ">
-                                <rect key="frame" x="0.0" y="263" width="414" height="21"/>
+                                <rect key="frame" x="0.0" y="188" width="414" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pEs-yP-WO1">
-                                <rect key="frame" x="139" y="140" width="136" height="30"/>
-                                <state key="normal" title="Send &quot;Hello World!&quot;"/>
-                                <connections>
-                                    <action selector="sendButtonPressed:" destination="9Pu-vz-22V" eventType="touchUpInside" id="ftO-bj-Pb4"/>
-                                </connections>
-                            </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Temp.png" translatesAutoresizingMaskIntoConstraints="NO" id="Pkp-hg-MJg">
+                                <rect key="frame" x="87" y="384" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
+                                </accessibility>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="pEs-yP-WO1" firstAttribute="top" secondItem="dMi-f7-hVa" secondAttribute="bottom" constant="52" id="4ae-g1-5J0"/>
                             <constraint firstItem="dOR-2c-7DW" firstAttribute="centerX" secondItem="BcI-Uw-D2L" secondAttribute="centerX" id="8GP-gv-RDL"/>
-                            <constraint firstItem="pEs-yP-WO1" firstAttribute="centerX" secondItem="BcI-Uw-D2L" secondAttribute="centerX" id="Iq4-Lk-wPJ"/>
-                            <constraint firstItem="RzW-4l-oYQ" firstAttribute="top" secondItem="dMi-f7-hVa" secondAttribute="bottom" constant="175" id="XZp-sQ-zNz"/>
-                            <constraint firstItem="dOR-2c-7DW" firstAttribute="top" secondItem="dMi-f7-hVa" secondAttribute="bottom" constant="123" id="lZ5-A2-AKN"/>
+                            <constraint firstItem="RzW-4l-oYQ" firstAttribute="top" secondItem="dMi-f7-hVa" secondAttribute="bottom" constant="100" id="XZp-sQ-zNz"/>
+                            <constraint firstItem="dOR-2c-7DW" firstAttribute="top" secondItem="dMi-f7-hVa" secondAttribute="bottom" constant="60" id="lZ5-A2-AKN"/>
                             <constraint firstItem="RzW-4l-oYQ" firstAttribute="width" secondItem="BcI-Uw-D2L" secondAttribute="width" id="pGH-NE-nqW"/>
                             <constraint firstItem="RzW-4l-oYQ" firstAttribute="centerX" secondItem="BcI-Uw-D2L" secondAttribute="centerX" id="yWc-Jv-zaW"/>
                         </constraints>
@@ -53,6 +51,7 @@
                     <navigationItem key="navigationItem" id="nko-pp-Oka"/>
                     <connections>
                         <outlet property="recievedMessageText" destination="RzW-4l-oYQ" id="d43-6r-CIj"/>
+                        <outlet property="visualizer" destination="Pkp-hg-MJg" id="BOi-kV-Ddd"/>
                         <segue destination="XZM-Me-sXn" kind="show" identifier="scan-segue" id="gj8-TH-9Lz"/>
                     </connections>
                 </viewController>
@@ -105,4 +104,7 @@
             <point key="canvasLocation" x="122" y="206"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Temp.png" width="38.400001525878906" height="38.400001525878906"/>
+    </resources>
 </document>

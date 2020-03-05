@@ -4,6 +4,7 @@
 //
 //  Created by Rick Smith on 13/07/2016.
 //  Copyright © 2016 Rick Smith. All rights reserved.
+//  Modified by Ryan Moll 2020
 //
 
 import UIKit
@@ -69,7 +70,11 @@ class ScanTableViewController: UITableViewController, CBCentralManagerDelegate {
     // MARK: - CBCentralManagerDelegate Methods
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         if(!peripherals.contains(peripheral)) {
-            peripherals.append(peripheral)
+            // Prevent table from including blank entries for devices with no name.
+            if(peripheral.name != nil){
+                peripherals.append(peripheral)
+            }
+            // Could be avoided by changing what to scan for? Line 55
         }
         
         self.tableView.reloadData()

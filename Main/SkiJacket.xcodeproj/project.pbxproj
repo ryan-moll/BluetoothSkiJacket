@@ -14,6 +14,7 @@
 		7850988E1D365ADD00976091 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7850988C1D365ADD00976091 /* LaunchScreen.storyboard */; };
 		785098961D365E8E00976091 /* ScanTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 785098951D365E8E00976091 /* ScanTableViewController.swift */; };
 		785098991D36607500976091 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 785098981D36607500976091 /* CoreBluetooth.framework */; };
+		D2AAB5CD241118DF00C09C57 /* Temp.png in Resources */ = {isa = PBXBuildFile; fileRef = D2AAB5CC241118DF00C09C57 /* Temp.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		7850988F1D365ADD00976091 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		785098951D365E8E00976091 /* ScanTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanTableViewController.swift; sourceTree = "<group>"; };
 		785098981D36607500976091 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		D2AAB5CC241118DF00C09C57 /* Temp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Temp.png; path = ../Temp.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +76,7 @@
 		785098971D36607500976091 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D2AAB5CC241118DF00C09C57 /* Temp.png */,
 				785098981D36607500976091 /* CoreBluetooth.framework */,
 			);
 			name = Frameworks;
@@ -143,6 +146,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7850988E1D365ADD00976091 /* LaunchScreen.storyboard in Resources */,
+				D2AAB5CD241118DF00C09C57 /* Temp.png in Resources */,
 				7850988B1D365ADD00976091 /* Assets.xcassets in Resources */,
 				785098891D365ADD00976091 /* Main.storyboard in Resources */,
 			);

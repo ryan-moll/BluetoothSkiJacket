@@ -4,6 +4,7 @@
 //
 //  Created by Rick Smith on 04/07/2016.
 //  Copyright © 2016 Rick Smith. All rights reserved.
+//  Modified by Ryan Moll 2020
 //
 
 import UIKit
@@ -17,35 +18,43 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
     let BLEService = "FFE0" // Transmission key = 254
     let BLECharacteristic = "FFE1"
     
+    @IBOutlet weak var visualizer: UIImageView!
     @IBOutlet weak var recievedMessageText: UILabel!
     
+    // Upon the main screen loading
     override func viewDidLoad() {
+        // Called in case a superclass also overrides this method
         super.viewDidLoad()
         
+        // Initialize the bluetooth manager
         manager = CBCentralManager(delegate: self, queue: nil);
         
         customiseNavigationBar()
     }
     
     func customiseNavigationBar () {
-        
+        // Declare a button to go in the nav bar (scan/disconnect)
         self.navigationItem.rightBarButtonItem = nil
-        
         let rightButton = UIButton()
         
+        // Initialize the button
+        // If there is no connected bluetooth device
         if (mainPeripheral == nil) {
+            // Make the button say "Scan"
             rightButton.setTitle("Scan", for: [])
             rightButton.setTitleColor(UIColor.blue, for: [])
             rightButton.frame = CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: 60, height: 30))
             rightButton.addTarget(self, action: #selector(self.scanButtonPressed), for: .touchUpInside)
-        } else {
+        } else { // There is a connected bluetooth device
+            // Make the button say "Disconnect"
             rightButton.setTitle("Disconnect", for: [])
             rightButton.setTitleColor(UIColor.blue, for: [])
             rightButton.frame = CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: 100, height: 30))
             rightButton.addTarget(self, action: #selector(self.disconnectButtonPressed), for: .touchUpInside)
         }
-        
+        // Declare the UI element for the button
         let rightBarButton = UIBarButtonItem()
+        // Initialize it with the button just created
         rightBarButton.customView = rightButton
         self.navigationItem.rightBarButtonItem = rightBarButton
         
@@ -72,22 +81,6 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
     @objc func disconnectButtonPressed() {
         //this will call didDisconnectPeripheral, but if any other apps are using the device it will not immediately disconnect
         manager?.cancelPeripheralConnection(mainPeripheral!)
-    }
-    
-    @IBAction func sendButtonPressed(_ sender: AnyObject) {
-        let helloWorld = "Hello World!"
-        let dataToSend = helloWorld.data(using: String.Encoding.utf8)
-        
-        if (mainPeripheral != nil) {
-            if (mainCharacteristic != nil){
-                mainPeripheral?.writeValue(dataToSend!, for: mainCharacteristic!, type: CBCharacteristicWriteType.withoutResponse)
-            } else {
-                print("mainCharacteristic was nil :/")
-            }
-            
-        } else {
-            print("haven't discovered device yet")
-        }
     }
     
     // MARK: - CBCentralManagerDelegate Methods    
@@ -199,12 +192,21 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
             if(characteristic.value != nil) {
                 let tempVal = characteristic.value!
                 let stringValue = String(data: tempVal, encoding: String.Encoding.utf8)!
-                print(stringValue)
                 recievedMessageText.text = stringValue
+                guard let deg = NumberFormatter().number(from: stringValue) else { return }
+                rotate(degrees: CGFloat(truncating: deg))
             }
         }
         
         
+    }
+    
+    func rotate(degrees: CGFloat){
+        // https://stackoverflow.com/a/58046326/
+        let degreesToRadians: (CGFloat) -> CGFloat = { (degrees: CGFloat) in
+            return degrees / 180.0 * CGFloat.pi
+        }
+        visualizer.transform =  CGAffineTransform(rotationAngle: degreesToRadians(degrees))
     }
     
 }
