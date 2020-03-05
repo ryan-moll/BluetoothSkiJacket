@@ -197,17 +197,9 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
         } else if (characteristic.uuid.uuidString == BLECharacteristic) {
             //data recieved
             if(characteristic.value != nil) {
-                let stringValue = String(data: characteristic.value!, encoding: String.Encoding.utf8)!
-//                print("stringValue: ", stringValue)
-//                var tempString = stringValue.prefix(5)
-//                print("tempString: ", tempString)
-//                var temp = Float(tempString)
-//                temp = ((9 * temp!) / 5) + 32
-//                print("temp: ", temp)
-//                tempString = "\(String(describing: temp))"
-//                print("tempString2: ", tempString)
-//                let ret = String(tempString.prefix(5))
-//                print("ret: ", ret)
+                let tempVal = characteristic.value!
+                let stringValue = String(data: tempVal, encoding: String.Encoding.utf8)!
+                print(stringValue)
                 recievedMessageText.text = stringValue
             }
         }
