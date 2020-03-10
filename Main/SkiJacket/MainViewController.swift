@@ -18,9 +18,14 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
     let BLEService = "FFE0" // Transmission key = 254
     let BLECharacteristic = "FFE1"
     var orientation = 0.0
+    var setup = false
+    var recording = false
+    var readingsSum = 0.0
+    var numReadings = 0
     
     @IBOutlet weak var visualizer: UIImageView!
     @IBOutlet weak var recievedMessageText: UILabel!
+    @IBOutlet weak var avgAngle: UILabel!
     
     // Upon the main screen loading
     override func viewDidLoad() {
@@ -85,7 +90,26 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
     
     @objc func disconnectButtonPressed() {
         //this will call didDisconnectPeripheral, but if any other apps are using the device it will not immediately disconnect
+        setup = false
+        rotate(degrees: CGFloat(truncating: NSNumber(value: 0.0)))
         manager?.cancelPeripheralConnection(mainPeripheral!)
+    }
+    
+    @objc func recordButton(_ sender: UIButton) {
+        if(!recording){
+            recording = true
+            sender.tintColor = UIColor.red
+            avgAngle.text = "..."
+        }else{
+            recording = false
+            sender.tintColor = UIColor.darkGray
+            var avgTilt = 0.0
+            if(numReadings != 0){
+                avgTilt = readingsSum/Double(numReadings)
+            }
+            avgAngle.text = String(avgTilt)
+            print(String(avgTilt))
+        }
     }
     
     // MARK: - CBCentralManagerDelegate Methods    
@@ -206,15 +230,27 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
                 guard let change = NumberFormatter().number(from: changeString) else { return }
                 guard let deg = NumberFormatter().number(from: degString) else { return }
                 let rad = CGFloat(truncating: change) * CGFloat.pi / 180
-                //rotate(degrees: CGFloat(truncating: deg))
-                UIView.animate(withDuration: 1.0, delay: 0, options: .curveLinear, animations: { () -> Void in
-                    self.visualizer.transform = self.visualizer.transform.rotated(by: rad)
-                })
+                
+                if(!setup){
+                    rotate(degrees: CGFloat(truncating: deg))
+                    setup = true
+                }else{
+                    UIView.animate(withDuration: 1.0, delay: 0, options: .curveLinear, animations: { () -> Void in
+                        self.visualizer.transform = self.visualizer.transform.rotated(by: rad)
+                    })
+                }
+                
+                if(recording){
+                    readingsSum += Double(truncating: deg)
+                    numReadings += 1
+                }
+                
                 if(Double(truncating: deg) > 60 && Double(truncating: deg) < 70){
                     visualizer.tintColor = UIColor.green
                 } else {
                     visualizer.tintColor = UIColor.red
                 }
+                orientation = Double(truncating: deg)
             }
         }
         
