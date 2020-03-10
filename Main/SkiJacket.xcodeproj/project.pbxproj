@@ -14,6 +14,8 @@
 		7850988E1D365ADD00976091 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7850988C1D365ADD00976091 /* LaunchScreen.storyboard */; };
 		785098961D365E8E00976091 /* ScanTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 785098951D365E8E00976091 /* ScanTableViewController.swift */; };
 		785098991D36607500976091 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 785098981D36607500976091 /* CoreBluetooth.framework */; };
+		D22C958424175D55006F57C6 /* Torso.png in Resources */ = {isa = PBXBuildFile; fileRef = D22C958324175D55006F57C6 /* Torso.png */; };
+		D22C9586241766D9006F57C6 /* Head.png in Resources */ = {isa = PBXBuildFile; fileRef = D22C9585241766D9006F57C6 /* Head.png */; };
 		D2AAB5CD241118DF00C09C57 /* Temp.png in Resources */ = {isa = PBXBuildFile; fileRef = D2AAB5CC241118DF00C09C57 /* Temp.png */; };
 /* End PBXBuildFile section */
 
@@ -27,6 +29,8 @@
 		7850988F1D365ADD00976091 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		785098951D365E8E00976091 /* ScanTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanTableViewController.swift; sourceTree = "<group>"; };
 		785098981D36607500976091 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		D22C958324175D55006F57C6 /* Torso.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Torso.png; path = ../Torso.png; sourceTree = "<group>"; };
+		D22C9585241766D9006F57C6 /* Head.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Head.png; path = ../Head.png; sourceTree = "<group>"; };
 		D2AAB5CC241118DF00C09C57 /* Temp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Temp.png; path = ../Temp.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -76,6 +80,8 @@
 		785098971D36607500976091 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D22C958324175D55006F57C6 /* Torso.png */,
+				D22C9585241766D9006F57C6 /* Head.png */,
 				D2AAB5CC241118DF00C09C57 /* Temp.png */,
 				785098981D36607500976091 /* CoreBluetooth.framework */,
 			);
@@ -146,7 +152,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				7850988E1D365ADD00976091 /* LaunchScreen.storyboard in Resources */,
+				D22C958424175D55006F57C6 /* Torso.png in Resources */,
 				D2AAB5CD241118DF00C09C57 /* Temp.png in Resources */,
+				D22C9586241766D9006F57C6 /* Head.png in Resources */,
 				7850988B1D365ADD00976091 /* Assets.xcassets in Resources */,
 				785098891D365ADD00976091 /* Main.storyboard in Resources */,
 			);

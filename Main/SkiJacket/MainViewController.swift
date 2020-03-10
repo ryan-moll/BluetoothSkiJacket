@@ -17,6 +17,7 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
     
     let BLEService = "FFE0" // Transmission key = 254
     let BLECharacteristic = "FFE1"
+    var orientation = 0.0
     
     @IBOutlet weak var visualizer: UIImageView!
     @IBOutlet weak var recievedMessageText: UILabel!
@@ -30,6 +31,10 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
         manager = CBCentralManager(delegate: self, queue: nil);
         
         customiseNavigationBar()
+        let image:UIImage = UIImage(named: "Torso.png")!
+        let templateImage = image.withRenderingMode(.alwaysTemplate)
+        visualizer.image = templateImage
+        visualizer.tintColor = UIColor.red
     }
     
     func customiseNavigationBar () {
@@ -192,9 +197,24 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
             if(characteristic.value != nil) {
                 let tempVal = characteristic.value!
                 let stringValue = String(data: tempVal, encoding: String.Encoding.utf8)!
-                recievedMessageText.text = stringValue
-                guard let deg = NumberFormatter().number(from: stringValue) else { return }
-                rotate(degrees: CGFloat(truncating: deg))
+                
+                let dataArr = stringValue.components(separatedBy: [","]).filter({!$0.isEmpty})
+                let changeString: String = dataArr[0]
+                let degString: String = dataArr[1]
+                
+                recievedMessageText.text = degString
+                guard let change = NumberFormatter().number(from: changeString) else { return }
+                guard let deg = NumberFormatter().number(from: degString) else { return }
+                let rad = CGFloat(truncating: change) * CGFloat.pi / 180
+                //rotate(degrees: CGFloat(truncating: deg))
+                UIView.animate(withDuration: 1.0, delay: 0, options: .curveLinear, animations: { () -> Void in
+                    self.visualizer.transform = self.visualizer.transform.rotated(by: rad)
+                })
+                if(Double(truncating: deg) > 60 && Double(truncating: deg) < 70){
+                    visualizer.tintColor = UIColor.green
+                } else {
+                    visualizer.tintColor = UIColor.red
+                }
             }
         }
         

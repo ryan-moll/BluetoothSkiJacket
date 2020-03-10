@@ -31,8 +31,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Temp.png" translatesAutoresizingMaskIntoConstraints="NO" id="Pkp-hg-MJg">
-                                <rect key="frame" x="66" y="307" width="283" height="283"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Torso.png" translatesAutoresizingMaskIntoConstraints="NO" id="Pkp-hg-MJg">
+                                <rect key="frame" x="131" y="307" width="283" height="283"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
@@ -105,6 +105,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Temp.png" width="38.400001525878906" height="38.400001525878906"/>
+        <image name="Torso.png" width="1536" height="386"/>
     </resources>
 </document>
