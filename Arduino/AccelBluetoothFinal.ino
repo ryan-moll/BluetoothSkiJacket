@@ -10,8 +10,8 @@
 #include <Adafruit_LIS3DH.h>
 #include <Adafruit_Sensor.h>
 
-// PIN 4 = BT TX; PIN 2 = BT RX
-SoftwareSerial BT(4,2);
+// PIN 7 = BT TX; PIN 2 = BT RX
+SoftwareSerial BT(7,2);
 
 Adafruit_LIS3DH lis = Adafruit_LIS3DH();
 

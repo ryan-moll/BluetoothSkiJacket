@@ -17,20 +17,32 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
     
     let BLEService = "FFE0" // Transmission key = 254
     let BLECharacteristic = "FFE1"
+    // UIColors from https://www.ralfebert.de/ios-examples/uikit/swift-uicolor-picker/
+    let redColor = UIColor(hue: 0.025, saturation: 0.73, brightness: 0.98, alpha: 1.0) /* #fc6042 */
+    let greenColor = UIColor(hue: 0.4389, saturation: 0.78, brightness: 0.78, alpha: 1.0) /* #2bc990 */
     var orientation = 0.0
     var setup = false
     var recording = false
     var readingsSum = 0.0
     var numReadings = 0
+    var successfulReadings = 0
     
     @IBOutlet weak var visualizer: UIImageView!
     @IBOutlet weak var recievedMessageText: UILabel!
     @IBOutlet weak var avgAngle: UILabel!
+    @IBOutlet weak var avgAngleLabel: UILabel!
+    @IBOutlet weak var timeGreen: UILabel!
+    @IBOutlet weak var timeGreenLabel: UILabel!
+    
+    @IBOutlet weak var recordButtonObject: UIButton!
     
     // Upon the main screen loading
     override func viewDidLoad() {
         // Called in case a superclass also overrides this method
         super.viewDidLoad()
+        
+        // Prevent phone from sleeping while app view is loaded
+        UIApplication.shared.isIdleTimerDisabled = true
         
         // Initialize the bluetooth manager
         manager = CBCentralManager(delegate: self, queue: nil);
@@ -39,15 +51,20 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
         let image:UIImage = UIImage(named: "Torso.png")!
         let templateImage = image.withRenderingMode(.alwaysTemplate)
         visualizer.image = templateImage
-        visualizer.tintColor = UIColor.red
+        visualizer.tintColor = UIColor.lightGray
+        rotate(degrees: CGFloat(truncating: NSNumber(value: 60.0)))
+        recordButtonObject.isHidden = true
+        avgAngle.isHidden = true
+        avgAngleLabel.isHidden = true
+        timeGreen.isHidden = true
+        timeGreenLabel.isHidden = true
     }
     
     func customiseNavigationBar () {
         // Declare a button to go in the nav bar (scan/disconnect)
         self.navigationItem.rightBarButtonItem = nil
-        let rightButton = UIButton()
-        
         // Initialize the button
+        let rightButton = UIButton()
         // If there is no connected bluetooth device
         if (mainPeripheral == nil) {
             // Make the button say "Scan"
@@ -89,26 +106,69 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
     }
     
     @objc func disconnectButtonPressed() {
-        //this will call didDisconnectPeripheral, but if any other apps are using the device it will not immediately disconnect
+        // Reset setup so default back angle will be reset on next connection
         setup = false
-        rotate(degrees: CGFloat(truncating: NSNumber(value: 0.0)))
+        // Reset torso angle to 60 degrees with smooth rotation
+        let resetRad = 60.0 / 180.0 * CGFloat.pi
+        UIView.animate(withDuration: 0.5, delay: 0, options: .curveLinear, animations: { () -> Void in
+            self.visualizer.transform = CGAffineTransform(rotationAngle: resetRad)
+        })
+        // Reset torso to grey while not connected
+        visualizer.tintColor = UIColor.lightGray
+        // Hide record button while not connected
+        recordButtonObject.isHidden = true // TODO: try 'recordButtonObject.tintColor = UIColor.lightGray' instead of hiding
+        // Reset angle to "..."
+        recievedMessageText.text = "..."
+        // This will call didDisconnectPeripheral, but if any other apps are using the device it will not immediately disconnect
         manager?.cancelPeripheralConnection(mainPeripheral!)
     }
     
     @objc func recordButton(_ sender: UIButton) {
+        // User pressed button to start recording
         if(!recording){
             recording = true
-            sender.tintColor = UIColor.red
+            sender.tintColor = redColor
             avgAngle.text = "..."
-        }else{
+            timeGreen.text = "..."
+            self.timeGreen.textColor = UIColor.darkGray
+            
+            avgAngle.isHidden = true
+            avgAngleLabel.isHidden = true
+            timeGreen.isHidden = true
+            timeGreenLabel.isHidden = true
+        }else{ // User pressed button to stop recording
             recording = false
+            avgAngle.isHidden = false
+            avgAngleLabel.isHidden = false
+            timeGreen.isHidden = false
+            timeGreenLabel.isHidden = false
             sender.tintColor = UIColor.darkGray
+            
             var avgTilt = 0.0
             if(numReadings != 0){
                 avgTilt = readingsSum/Double(numReadings)
             }
-            avgAngle.text = String(avgTilt)
-            print(String(avgTilt))
+            avgTilt = Double(round(100*avgTilt)/100)
+            let avgTiltText = String(avgTilt) + "°"
+            self.avgAngle.text = avgTiltText
+            /* ASK: Change text color based on avg success/fail
+            if(avgTilt > 60.0 && avgTilt < 70.0){
+                self.avgAngle.textColor = greenColor
+            } else {
+                self.avgAngle.textColor = redColor
+            }*/
+            
+            var avgSuccess = 0.0
+            if(numReadings != 0){
+                avgSuccess = Double(successfulReadings)/Double(numReadings)
+            }
+            avgSuccess = Double(round(100*avgSuccess))
+            let avgSuccessText = String(avgSuccess) + "%"
+            self.timeGreen.text = avgSuccessText
+            
+            self.numReadings = 0
+            self.readingsSum = 0.0
+            self.successfulReadings = 0
         }
     }
     
@@ -193,6 +253,8 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
                     //Set Notify is useful to read incoming data async
                     peripheral.setNotifyValue(true, for: characteristic)
                     print("Found Arduino Data Characteristic")
+                    visualizer.tintColor = redColor // HERE AHHHHH
+                    recordButtonObject.isHidden = false
                 }
                 
             }
@@ -232,7 +294,11 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
                 let rad = CGFloat(truncating: change) * CGFloat.pi / 180
                 
                 if(!setup){
-                    rotate(degrees: CGFloat(truncating: deg))
+                    let setRad = CGFloat(truncating: deg) / 180.0 * CGFloat.pi
+                    UIView.animate(withDuration: 0.5, delay: 0, options: .curveLinear, animations: { () -> Void in
+                        self.visualizer.transform = CGAffineTransform(rotationAngle: setRad)
+                    })
+                    //rotate(degrees: CGFloat(truncating: deg))
                     setup = true
                 }else{
                     UIView.animate(withDuration: 1.0, delay: 0, options: .curveLinear, animations: { () -> Void in
@@ -246,9 +312,12 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
                 }
                 
                 if(Double(truncating: deg) > 60 && Double(truncating: deg) < 70){
-                    visualizer.tintColor = UIColor.green
+                    visualizer.tintColor = greenColor
+                    if(recording){
+                        successfulReadings += 1
+                    }
                 } else {
-                    visualizer.tintColor = UIColor.red
+                    visualizer.tintColor = redColor
                 }
                 orientation = Double(truncating: deg)
             }
