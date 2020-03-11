@@ -383,6 +383,10 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
                 currentAngle.text = degString
                 guard let change = NumberFormatter().number(from: changeString) else { return }
                 guard let deg = NumberFormatter().number(from: degString) else { return }
+                /* ASK: Limit forward lean to 30 deg
+                if(Int(truncating: deg) < 30){
+                    deg = 30
+                }*/
                 let rad = CGFloat(truncating: change) * CGFloat.pi / 180
                 
                 if(!setup){
