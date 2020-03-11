@@ -18,6 +18,11 @@
 		D22C9586241766D9006F57C6 /* Head.png in Resources */ = {isa = PBXBuildFile; fileRef = D22C9585241766D9006F57C6 /* Head.png */; };
 		D22C958A24178DF4006F57C6 /* Legs.png in Resources */ = {isa = PBXBuildFile; fileRef = D22C958924178DF4006F57C6 /* Legs.png */; };
 		D25C6600241891AA00F6294D /* TitleLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = D25C65FF241891AA00F6294D /* TitleLogo.png */; };
+		D25C66052418BCC100F6294D /* LegsGap.png in Resources */ = {isa = PBXBuildFile; fileRef = D25C66012418BCC000F6294D /* LegsGap.png */; };
+		D25C66062418BCC100F6294D /* LegsNoGap.png in Resources */ = {isa = PBXBuildFile; fileRef = D25C66022418BCC000F6294D /* LegsNoGap.png */; };
+		D25C66072418BCC100F6294D /* TorsoGap.png in Resources */ = {isa = PBXBuildFile; fileRef = D25C66032418BCC000F6294D /* TorsoGap.png */; };
+		D25C66082418BCC100F6294D /* TorsoNoGap.png in Resources */ = {isa = PBXBuildFile; fileRef = D25C66042418BCC100F6294D /* TorsoNoGap.png */; };
+		D25C660A2418C47D00F6294D /* TorsoArms.png in Resources */ = {isa = PBXBuildFile; fileRef = D25C66092418C47D00F6294D /* TorsoArms.png */; };
 		D2AAB5CD241118DF00C09C57 /* Temp.png in Resources */ = {isa = PBXBuildFile; fileRef = D2AAB5CC241118DF00C09C57 /* Temp.png */; };
 		D2E1A3BA24185FDD002B8243 /* LogoVectorLarge.png in Resources */ = {isa = PBXBuildFile; fileRef = D2E1A3B924185FDD002B8243 /* LogoVectorLarge.png */; };
 /* End PBXBuildFile section */
@@ -36,6 +41,11 @@
 		D22C9585241766D9006F57C6 /* Head.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Head.png; path = ../Head.png; sourceTree = "<group>"; };
 		D22C958924178DF4006F57C6 /* Legs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Legs.png; path = ../Legs.png; sourceTree = "<group>"; };
 		D25C65FF241891AA00F6294D /* TitleLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TitleLogo.png; path = ../TitleLogo.png; sourceTree = "<group>"; };
+		D25C66012418BCC000F6294D /* LegsGap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LegsGap.png; path = ../LegsGap.png; sourceTree = "<group>"; };
+		D25C66022418BCC000F6294D /* LegsNoGap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LegsNoGap.png; path = ../LegsNoGap.png; sourceTree = "<group>"; };
+		D25C66032418BCC000F6294D /* TorsoGap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TorsoGap.png; path = ../TorsoGap.png; sourceTree = "<group>"; };
+		D25C66042418BCC100F6294D /* TorsoNoGap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TorsoNoGap.png; path = ../TorsoNoGap.png; sourceTree = "<group>"; };
+		D25C66092418C47D00F6294D /* TorsoArms.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TorsoArms.png; path = ../TorsoArms.png; sourceTree = "<group>"; };
 		D2AAB5CC241118DF00C09C57 /* Temp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Temp.png; path = ../Temp.png; sourceTree = "<group>"; };
 		D2E1A3B924185FDD002B8243 /* LogoVectorLarge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LogoVectorLarge.png; path = ../LogoVectorLarge.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -91,6 +101,11 @@
 				D22C9585241766D9006F57C6 /* Head.png */,
 				D2AAB5CC241118DF00C09C57 /* Temp.png */,
 				D25C65FF241891AA00F6294D /* TitleLogo.png */,
+				D25C66012418BCC000F6294D /* LegsGap.png */,
+				D25C66022418BCC000F6294D /* LegsNoGap.png */,
+				D25C66032418BCC000F6294D /* TorsoGap.png */,
+				D25C66092418C47D00F6294D /* TorsoArms.png */,
+				D25C66042418BCC100F6294D /* TorsoNoGap.png */,
 				D2E1A3B924185FDD002B8243 /* LogoVectorLarge.png */,
 				785098981D36607500976091 /* CoreBluetooth.framework */,
 			);
@@ -160,14 +175,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D25C66082418BCC100F6294D /* TorsoNoGap.png in Resources */,
 				7850988E1D365ADD00976091 /* LaunchScreen.storyboard in Resources */,
 				D22C958424175D55006F57C6 /* Torso.png in Resources */,
 				D2AAB5CD241118DF00C09C57 /* Temp.png in Resources */,
 				D22C9586241766D9006F57C6 /* Head.png in Resources */,
 				D25C6600241891AA00F6294D /* TitleLogo.png in Resources */,
+				D25C66062418BCC100F6294D /* LegsNoGap.png in Resources */,
+				D25C66052418BCC100F6294D /* LegsGap.png in Resources */,
+				D25C660A2418C47D00F6294D /* TorsoArms.png in Resources */,
 				7850988B1D365ADD00976091 /* Assets.xcassets in Resources */,
 				D2E1A3BA24185FDD002B8243 /* LogoVectorLarge.png in Resources */,
 				D22C958A24178DF4006F57C6 /* Legs.png in Resources */,
+				D25C66072418BCC100F6294D /* TorsoGap.png in Resources */,
 				785098891D365ADD00976091 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

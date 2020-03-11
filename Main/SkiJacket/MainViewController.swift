@@ -30,6 +30,8 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
     var numReadings = 0
     var successfulReadings = 0
     
+    
+    @IBOutlet weak var torsoArms: UIImageView!
     @IBOutlet weak var visualizer: UIImageView!
     @IBOutlet weak var currentAngle: UILabel!
     @IBOutlet weak var currentAngleLabel: UILabel!
@@ -55,7 +57,7 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
         let image:UIImage = UIImage(named: "Torso.png")!
         let templateImage = image.withRenderingMode(.alwaysTemplate)
         visualizer.image = templateImage
-        visualizer.tintColor = UIColor.lightGray
+        visualizer.tintColor = UIColor(hue: 0, saturation: 0, brightness: 0.33, alpha: 1.0) /* #434343 */
         rotate(degrees: CGFloat(truncating: NSNumber(value: min)))
         recordButtonObject.isHidden = true
         avgAngle.isHidden = true
@@ -145,8 +147,11 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
         UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations: { () -> Void in
             self.visualizer.transform = CGAffineTransform(rotationAngle: resetRad)
         })
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations: { () -> Void in
+            self.torsoArms.transform = CGAffineTransform(rotationAngle: resetRad)
+        })
         // Reset torso to grey while not connected
-        visualizer.tintColor = UIColor.lightGray
+        visualizer.tintColor = UIColor(hue: 0, saturation: 0, brightness: 0.33, alpha: 1.0) /* #434343 */
         // Hide record button while not connected
         recordButtonObject.isHidden = true // TODO: try 'recordButtonObject.tintColor = UIColor.lightGray' instead of hiding
         // Reset angle to "..."
@@ -385,11 +390,17 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
                     UIView.animate(withDuration: 0.5, delay: 0, options: .curveLinear, animations: { () -> Void in
                         self.visualizer.transform = CGAffineTransform(rotationAngle: setRad)
                     })
+                    UIView.animate(withDuration: 0.5, delay: 0, options: .curveLinear, animations: { () -> Void in
+                        self.torsoArms.transform = CGAffineTransform(rotationAngle: setRad)
+                    })
                     //rotate(degrees: CGFloat(truncating: deg))
                     setup = true
                 }else{
                     UIView.animate(withDuration: 1.0, delay: 0, options: .curveLinear, animations: { () -> Void in
                         self.visualizer.transform = self.visualizer.transform.rotated(by: rad)
+                    })
+                    UIView.animate(withDuration: 1.0, delay: 0, options: .curveLinear, animations: { () -> Void in
+                        self.torsoArms.transform = self.torsoArms.transform.rotated(by: rad)
                     })
                 }
                 
@@ -419,6 +430,7 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
             return degrees / 180.0 * CGFloat.pi
         }
         visualizer.transform =  CGAffineTransform(rotationAngle: degreesToRadians(degrees))
+        torsoArms.transform =  CGAffineTransform(rotationAngle: degreesToRadians(degrees))
     }
     
 }
