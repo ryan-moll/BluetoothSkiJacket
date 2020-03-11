@@ -19,16 +19,20 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
     let BLECharacteristic = "FFE1"
     // UIColors from https://www.ralfebert.de/ios-examples/uikit/swift-uicolor-picker/
     let redColor = UIColor(hue: 0.025, saturation: 0.73, brightness: 0.98, alpha: 1.0) /* #fc6042 */
-    let greenColor = UIColor(hue: 0.4389, saturation: 0.78, brightness: 0.78, alpha: 1.0) /* #2bc990 */
+    let greenColor = UIColor(hue: 0.3333, saturation: 0.59, brightness: 0.89, alpha: 1.0) /* #5de25d */
+    let min = 60.0
+    let max = 70.0
     var orientation = 0.0
     var setup = false
+    var shrunk = false
     var recording = false
     var readingsSum = 0.0
     var numReadings = 0
     var successfulReadings = 0
     
     @IBOutlet weak var visualizer: UIImageView!
-    @IBOutlet weak var recievedMessageText: UILabel!
+    @IBOutlet weak var currentAngle: UILabel!
+    @IBOutlet weak var currentAngleLabel: UILabel!
     @IBOutlet weak var avgAngle: UILabel!
     @IBOutlet weak var avgAngleLabel: UILabel!
     @IBOutlet weak var timeGreen: UILabel!
@@ -52,12 +56,24 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
         let templateImage = image.withRenderingMode(.alwaysTemplate)
         visualizer.image = templateImage
         visualizer.tintColor = UIColor.lightGray
-        rotate(degrees: CGFloat(truncating: NSNumber(value: 60.0)))
+        rotate(degrees: CGFloat(truncating: NSNumber(value: min)))
         recordButtonObject.isHidden = true
         avgAngle.isHidden = true
         avgAngleLabel.isHidden = true
         timeGreen.isHidden = true
         timeGreenLabel.isHidden = true
+        
+        var t1 = CGAffineTransform.identity
+        t1 = t1.translatedBy(x: 0.0, y: 20.0)
+        var t2 = CGAffineTransform.identity
+        t2 = t2.translatedBy(x: 0.0, y: 40.0)
+        
+        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: { () -> Void in
+            self.currentAngleLabel.transform = t1
+        })
+        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: { () -> Void in
+            self.currentAngle.transform = t2
+        })
     }
     
     func customiseNavigationBar () {
@@ -68,14 +84,16 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
         // If there is no connected bluetooth device
         if (mainPeripheral == nil) {
             // Make the button say "Scan"
-            rightButton.setTitle("Scan", for: [])
-            rightButton.setTitleColor(UIColor.blue, for: [])
+            rightButton.setTitle("SCAN", for: [])
+            rightButton.setTitleColor(UIColor.darkGray, for: [])
+            rightButton.titleLabel?.font =  UIFont(name: "Futura-Bold", size: 16)
             rightButton.frame = CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: 60, height: 30))
             rightButton.addTarget(self, action: #selector(self.scanButtonPressed), for: .touchUpInside)
         } else { // There is a connected bluetooth device
             // Make the button say "Disconnect"
-            rightButton.setTitle("Disconnect", for: [])
-            rightButton.setTitleColor(UIColor.blue, for: [])
+            rightButton.setTitle("DISCONNECT", for: [])
+            rightButton.setTitleColor(UIColor.darkGray, for: [])
+            rightButton.titleLabel?.font =  UIFont(name: "Futura-Bold", size: 16)
             rightButton.frame = CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: 100, height: 30))
             rightButton.addTarget(self, action: #selector(self.disconnectButtonPressed), for: .touchUpInside)
         }
@@ -85,6 +103,20 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
         rightBarButton.customView = rightButton
         self.navigationItem.rightBarButtonItem = rightBarButton
         
+        /* Add logo to navigation bar
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        imageView.contentMode = .scaleAspectFit // .center .scaleAspectFit
+        let image = UIImage(named: "LogoVectorLarge")
+        imageView.image = image
+        navigationItem.titleView = imageView */
+        
+        let imageView = UIImageView(image: UIImage(named: "LogoVectorLarge"))
+        imageView.contentMode = UIViewContentMode.scaleAspectFit
+        let titleView = UIView(frame: CGRect(x: 0, y: 0, width: 38, height: 38))
+        imageView.frame = titleView.bounds
+        titleView.addSubview(imageView)
+
+        self.navigationItem.titleView = titleView
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -108,9 +140,9 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
     @objc func disconnectButtonPressed() {
         // Reset setup so default back angle will be reset on next connection
         setup = false
-        // Reset torso angle to 60 degrees with smooth rotation
-        let resetRad = 60.0 / 180.0 * CGFloat.pi
-        UIView.animate(withDuration: 0.5, delay: 0, options: .curveLinear, animations: { () -> Void in
+        // Reset torso angle to min degrees with smooth rotation
+        let resetRad = CGFloat(min) / 180.0 * CGFloat.pi
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations: { () -> Void in
             self.visualizer.transform = CGAffineTransform(rotationAngle: resetRad)
         })
         // Reset torso to grey while not connected
@@ -118,7 +150,31 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
         // Hide record button while not connected
         recordButtonObject.isHidden = true // TODO: try 'recordButtonObject.tintColor = UIColor.lightGray' instead of hiding
         // Reset angle to "..."
-        recievedMessageText.text = "..."
+        currentAngle.text = "..."
+        // Reset and hide avgAngle and timeGreen on disconnect
+        avgAngle.text = "..."
+        timeGreen.text = "..."
+        //self.timeGreen.textColor = UIColor.darkGray
+        avgAngle.isHidden = true
+        avgAngleLabel.isHidden = true
+        timeGreen.isHidden = true
+        timeGreenLabel.isHidden = true
+        if(shrunk){
+            var t1 = CGAffineTransform.identity
+            t1 = t1.scaledBy(x: 1.0, y: 1.0)
+            t1 = t1.translatedBy(x: 0.0, y: 20.0)
+            UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseInOut, animations: { () -> Void in
+                self.currentAngleLabel.transform = t1
+            })
+            var t2 = CGAffineTransform.identity
+            t2 = t2.scaledBy(x: 1.0, y: 1.0)
+            t2 = t2.translatedBy(x: 0.0, y: 40.0)
+            UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseInOut, animations: { () -> Void in
+                self.currentAngle.transform = t2
+            })
+            shrunk = false
+        }
+        
         // This will call didDisconnectPeripheral, but if any other apps are using the device it will not immediately disconnect
         manager?.cancelPeripheralConnection(mainPeripheral!)
     }
@@ -130,14 +186,45 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
             sender.tintColor = redColor
             avgAngle.text = "..."
             timeGreen.text = "..."
-            self.timeGreen.textColor = UIColor.darkGray
+            //self.timeGreen.textColor = UIColor.darkGray
             
             avgAngle.isHidden = true
             avgAngleLabel.isHidden = true
             timeGreen.isHidden = true
             timeGreenLabel.isHidden = true
+            
+            if(shrunk){
+                var t1 = CGAffineTransform.identity
+                t1 = t1.scaledBy(x: 1.0, y: 1.0)
+                t1 = t1.translatedBy(x: 0.0, y: 20.0)
+                UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseInOut, animations: { () -> Void in
+                    self.currentAngleLabel.transform = t1
+                })
+                var t2 = CGAffineTransform.identity
+                t2 = t2.scaledBy(x: 1.0, y: 1.0)
+                t2 = t2.translatedBy(x: 0.0, y: 40.0)
+                UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseInOut, animations: { () -> Void in
+                    self.currentAngle.transform = t2
+                })
+                shrunk = false
+            }
         }else{ // User pressed button to stop recording
             recording = false
+            var t1 = CGAffineTransform.identity
+            t1 = t1.scaledBy(x: 0.4, y: 0.4)
+            t1 = t1.translatedBy(x: 0.0, y: -20.0)
+            var t2 = CGAffineTransform.identity
+            t2 = t2.scaledBy(x: 0.4, y: 0.4)
+            t2 = t2.translatedBy(x: 0.0, y: -30.0)
+            
+            UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseInOut, animations: { () -> Void in
+                self.currentAngleLabel.transform = t1
+            })
+            UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseInOut, animations: { () -> Void in
+                self.currentAngle.transform = t2
+            })
+            shrunk = true
+            
             avgAngle.isHidden = false
             avgAngleLabel.isHidden = false
             timeGreen.isHidden = false
@@ -152,7 +239,7 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
             let avgTiltText = String(avgTilt) + "°"
             self.avgAngle.text = avgTiltText
             /* ASK: Change text color based on avg success/fail
-            if(avgTilt > 60.0 && avgTilt < 70.0){
+            if(avgTilt > min && avgTilt < max){
                 self.avgAngle.textColor = greenColor
             } else {
                 self.avgAngle.textColor = redColor
@@ -288,7 +375,7 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
                 let changeString: String = dataArr[0]
                 let degString: String = dataArr[1]
                 
-                recievedMessageText.text = degString
+                currentAngle.text = degString
                 guard let change = NumberFormatter().number(from: changeString) else { return }
                 guard let deg = NumberFormatter().number(from: degString) else { return }
                 let rad = CGFloat(truncating: change) * CGFloat.pi / 180
@@ -311,7 +398,7 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
                     numReadings += 1
                 }
                 
-                if(Double(truncating: deg) > 60 && Double(truncating: deg) < 70){
+                if(Double(truncating: deg) > min && Double(truncating: deg) < max){
                     visualizer.tintColor = greenColor
                     if(recording){
                         successfulReadings += 1

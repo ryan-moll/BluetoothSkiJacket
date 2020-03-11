@@ -20,20 +20,20 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ANGLE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dOR-2c-7DW">
-                                <rect key="frame" x="166.33333333333334" y="101" width="81.666666666666657" height="28.666666666666657"/>
+                                <rect key="frame" x="114.33333333333333" y="101" width="185.66666666666669" height="65"/>
                                 <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" name="Futura-Bold" family="Futura" pointSize="22"/>
+                                <fontDescription key="fontDescription" name="Futura-Bold" family="Futura" pointSize="50"/>
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RzW-4l-oYQ">
-                                <rect key="frame" x="0.0" y="138" width="414" height="22.333333333333343"/>
-                                <fontDescription key="fontDescription" name="Futura-Bold" family="Futura" pointSize="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RzW-4l-oYQ" userLabel="currentAngle">
+                                <rect key="frame" x="0.0" y="138" width="414" height="52"/>
+                                <fontDescription key="fontDescription" name="Futura-Bold" family="Futura" pointSize="40"/>
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Torso.png" translatesAutoresizingMaskIntoConstraints="NO" id="Pkp-hg-MJg">
-                                <rect key="frame" x="80" y="276" width="450" height="450"/>
+                                <rect key="frame" x="75" y="276" width="450" height="450"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
                                 </accessibility>
@@ -105,11 +105,11 @@
                             <constraint firstItem="RzW-4l-oYQ" firstAttribute="top" secondItem="dMi-f7-hVa" secondAttribute="bottom" constant="50" id="XZp-sQ-zNz"/>
                             <constraint firstItem="JBG-Si-9wW" firstAttribute="centerX" secondItem="Kdz-zM-eSC" secondAttribute="centerX" id="baS-Da-Bo9"/>
                             <constraint firstItem="IFe-mG-Tzk" firstAttribute="centerX" secondItem="7fg-E8-gdu" secondAttribute="centerX" id="bpy-t2-vzn"/>
-                            <constraint firstItem="Pkp-hg-MJg" firstAttribute="leading" secondItem="BcI-Uw-D2L" secondAttribute="leadingMargin" constant="60" id="gt4-pf-PtK"/>
+                            <constraint firstItem="Pkp-hg-MJg" firstAttribute="leading" secondItem="BcI-Uw-D2L" secondAttribute="leadingMargin" constant="55" id="gt4-pf-PtK"/>
                             <constraint firstItem="JBG-Si-9wW" firstAttribute="top" secondItem="Kdz-zM-eSC" secondAttribute="bottom" constant="8" id="hyL-Eu-c9P"/>
                             <constraint firstItem="dOR-2c-7DW" firstAttribute="top" secondItem="dMi-f7-hVa" secondAttribute="bottom" constant="13" id="lZ5-A2-AKN"/>
                             <constraint firstItem="RzW-4l-oYQ" firstAttribute="width" secondItem="BcI-Uw-D2L" secondAttribute="width" id="pGH-NE-nqW"/>
-                            <constraint firstItem="JBG-Si-9wW" firstAttribute="centerX" secondItem="Pkp-hg-MJg" secondAttribute="centerX" constant="-5" id="s8H-pB-7PL"/>
+                            <constraint firstItem="JBG-Si-9wW" firstAttribute="centerX" secondItem="Pkp-hg-MJg" secondAttribute="centerX" id="s8H-pB-7PL"/>
                             <constraint firstItem="RzW-4l-oYQ" firstAttribute="centerX" secondItem="BcI-Uw-D2L" secondAttribute="centerX" id="yWc-Jv-zaW"/>
                             <constraint firstItem="IFe-mG-Tzk" firstAttribute="top" secondItem="7fg-E8-gdu" secondAttribute="bottom" constant="8" id="z7V-VF-CMH"/>
                         </constraints>
@@ -118,7 +118,8 @@
                     <connections>
                         <outlet property="avgAngle" destination="IFe-mG-Tzk" id="PuH-YL-7iP"/>
                         <outlet property="avgAngleLabel" destination="7fg-E8-gdu" id="Ysd-v0-kmc"/>
-                        <outlet property="recievedMessageText" destination="RzW-4l-oYQ" id="d43-6r-CIj"/>
+                        <outlet property="currentAngle" destination="RzW-4l-oYQ" id="cPh-4m-BuW"/>
+                        <outlet property="currentAngleLabel" destination="dOR-2c-7DW" id="EnL-7Y-yRp"/>
                         <outlet property="recordButtonObject" destination="rbu-ez-Zv7" id="awq-ds-dab"/>
                         <outlet property="timeGreen" destination="JBG-Si-9wW" id="B5d-e4-tWq"/>
                         <outlet property="timeGreenLabel" destination="Kdz-zM-eSC" id="mJN-Aj-o3A"/>

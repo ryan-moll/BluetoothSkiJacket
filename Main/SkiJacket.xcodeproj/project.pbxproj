@@ -17,7 +17,9 @@
 		D22C958424175D55006F57C6 /* Torso.png in Resources */ = {isa = PBXBuildFile; fileRef = D22C958324175D55006F57C6 /* Torso.png */; };
 		D22C9586241766D9006F57C6 /* Head.png in Resources */ = {isa = PBXBuildFile; fileRef = D22C9585241766D9006F57C6 /* Head.png */; };
 		D22C958A24178DF4006F57C6 /* Legs.png in Resources */ = {isa = PBXBuildFile; fileRef = D22C958924178DF4006F57C6 /* Legs.png */; };
+		D25C6600241891AA00F6294D /* TitleLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = D25C65FF241891AA00F6294D /* TitleLogo.png */; };
 		D2AAB5CD241118DF00C09C57 /* Temp.png in Resources */ = {isa = PBXBuildFile; fileRef = D2AAB5CC241118DF00C09C57 /* Temp.png */; };
+		D2E1A3BA24185FDD002B8243 /* LogoVectorLarge.png in Resources */ = {isa = PBXBuildFile; fileRef = D2E1A3B924185FDD002B8243 /* LogoVectorLarge.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,7 +35,9 @@
 		D22C958324175D55006F57C6 /* Torso.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Torso.png; path = ../Torso.png; sourceTree = "<group>"; };
 		D22C9585241766D9006F57C6 /* Head.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Head.png; path = ../Head.png; sourceTree = "<group>"; };
 		D22C958924178DF4006F57C6 /* Legs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Legs.png; path = ../Legs.png; sourceTree = "<group>"; };
+		D25C65FF241891AA00F6294D /* TitleLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TitleLogo.png; path = ../TitleLogo.png; sourceTree = "<group>"; };
 		D2AAB5CC241118DF00C09C57 /* Temp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Temp.png; path = ../Temp.png; sourceTree = "<group>"; };
+		D2E1A3B924185FDD002B8243 /* LogoVectorLarge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LogoVectorLarge.png; path = ../LogoVectorLarge.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +90,8 @@
 				D22C958924178DF4006F57C6 /* Legs.png */,
 				D22C9585241766D9006F57C6 /* Head.png */,
 				D2AAB5CC241118DF00C09C57 /* Temp.png */,
+				D25C65FF241891AA00F6294D /* TitleLogo.png */,
+				D2E1A3B924185FDD002B8243 /* LogoVectorLarge.png */,
 				785098981D36607500976091 /* CoreBluetooth.framework */,
 			);
 			name = Frameworks;
@@ -158,7 +164,9 @@
 				D22C958424175D55006F57C6 /* Torso.png in Resources */,
 				D2AAB5CD241118DF00C09C57 /* Temp.png in Resources */,
 				D22C9586241766D9006F57C6 /* Head.png in Resources */,
+				D25C6600241891AA00F6294D /* TitleLogo.png in Resources */,
 				7850988B1D365ADD00976091 /* Assets.xcassets in Resources */,
+				D2E1A3BA24185FDD002B8243 /* LogoVectorLarge.png in Resources */,
 				D22C958A24178DF4006F57C6 /* Legs.png in Resources */,
 				785098891D365ADD00976091 /* Main.storyboard in Resources */,
 			);

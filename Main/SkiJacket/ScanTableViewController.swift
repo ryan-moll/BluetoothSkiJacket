@@ -10,6 +10,28 @@
 import UIKit
 import CoreBluetooth
 
+extension UINavigationItem{
+
+    override open func awakeFromNib() {
+        super.awakeFromNib()
+
+        let backItem = UIBarButtonItem()
+        backItem.title = "BACK"
+//
+//        if let font = UIFont(name: "Futura-Bold", size: 15){
+//            backItem.setTitleTextAttributes([NSAttributedStringKey.font:font], for: .normal)
+//        }else{
+//
+//            print("Font Not available")
+//        }
+        /*Changing color*/
+        backItem.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.darkGray], for: .normal)
+
+        self.backBarButtonItem = backItem
+    }
+
+}
+
 class ScanTableViewController: UITableViewController, CBCentralManagerDelegate {
     
     var peripherals:[CBPeripheral] = []
@@ -17,7 +39,8 @@ class ScanTableViewController: UITableViewController, CBCentralManagerDelegate {
     var parentView:MainViewController? = nil
     
     override func viewDidLoad() {
-        super.viewDidLoad()    
+        super.viewDidLoad()
+        self.navigationController?.navigationBar.tintColor = UIColor.darkGray
     }
     
     override func viewDidAppear(_ animated: Bool) {

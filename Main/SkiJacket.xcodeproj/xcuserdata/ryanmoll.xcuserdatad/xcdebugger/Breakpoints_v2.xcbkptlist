@@ -14,9 +14,25 @@
             filePath = "SkiJacket/MainViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "126"
-            endingLineNumber = "126"
-            landmarkName = "recordButton(_:)"
+            startingLineNumber = "158"
+            endingLineNumber = "158"
+            landmarkName = "disconnectButtonPressed()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "54977C12-28E4-49B6-A1E9-563458CB953F"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SkiJacket/MainViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "115"
+            endingLineNumber = "115"
+            landmarkName = "customiseNavigationBar()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
