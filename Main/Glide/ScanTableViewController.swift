@@ -15,15 +15,9 @@ extension UINavigationItem{
     override open func awakeFromNib() {
         super.awakeFromNib()
 
+        // Change back button to be all caps and grey
         let backItem = UIBarButtonItem()
         backItem.title = "BACK"
-//
-//        if let font = UIFont(name: "Futura-Bold", size: 15){
-//            backItem.setTitleTextAttributes([NSAttributedStringKey.font:font], for: .normal)
-//        }else{
-//
-//            print("Font Not available")
-//        }
         /*Changing color*/
         backItem.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.darkGray], for: .normal)
 
@@ -77,10 +71,10 @@ class ScanTableViewController: UITableViewController, CBCentralManagerDelegate {
     func scanBLEDevices() {
         //manager?.scanForPeripherals(withServices: [CBUUID.init(string: parentView!.BLEService)], options: nil)
         
-        //if you pass nil in the first parameter, then scanForPeriperals will look for any devices.
+        // If you pass nil in the first parameter, then scanForPeriperals will look for any devices.
         manager?.scanForPeripherals(withServices: nil, options: nil)
         
-        //stop scanning after 10 seconds
+        // Stop scanning after 10 seconds
         DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
             self.stopScanForBLEDevices()
         }
@@ -97,20 +91,11 @@ class ScanTableViewController: UITableViewController, CBCentralManagerDelegate {
             if(peripheral.name != nil){
                 peripherals.append(peripheral)
             }
-            // Could be avoided by changing what to scan for? Line 55
+            // Could be avoided by changing what to scan for? Line 72?
         }
         
         self.tableView.reloadData()
     }
-    
-//    func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : AnyObject], rssi RSSI: NSNumber) {
-//        
-//        if(!peripherals.contains(peripheral)) {
-//            peripherals.append(peripheral)
-//        }
-//        
-//        self.tableView.reloadData()
-//    }
     
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         print(central.state)
@@ -118,12 +103,12 @@ class ScanTableViewController: UITableViewController, CBCentralManagerDelegate {
     
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         
-        //pass reference to connected peripheral to parent view
+        // Pass reference to connected peripheral to parent view
         parentView?.mainPeripheral = peripheral
         peripheral.delegate = parentView
         peripheral.discoverServices(nil)
         
-        //set the manager's delegate view to parent so it can call relevant disconnect methods
+        // Set the manager's delegate view to parent so it can call relevant disconnect methods
         manager?.delegate = parentView
         parentView?.customiseNavigationBar()
         

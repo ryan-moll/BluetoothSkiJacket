@@ -20,10 +20,10 @@ float previousAngle;
 void setup(void) {
     delay(1000);
     Serial.println("Setting up Arduino...");
-    Serial.begin(9600);
+    Serial.begin(4800);
     while (!Serial) delay(10);     // will pause Zero, Leonardo, etc until serial console opens
     Serial.println("Serial started.");
-    BT.begin(9600);
+    BT.begin(4800);
     Serial.println("Bluetooth started.");
   
     if (! lis.begin(0x18)) {   // change this to 0x19 for alternative i2c address

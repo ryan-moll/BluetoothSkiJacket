@@ -20,15 +20,14 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
     // UIColors from https://www.ralfebert.de/ios-examples/uikit/swift-uicolor-picker/
     let redColor = UIColor(hue: 0.025, saturation: 0.73, brightness: 0.98, alpha: 1.0) /* #fc6042 */
     let greenColor = UIColor(hue: 0.3333, saturation: 0.59, brightness: 0.89, alpha: 1.0) /* #5de25d */
-    let min = 60.0
+    let min = 60.0 // Change to adjust ideal skier lean angle
     let max = 70.0
-    var orientation = 0.0
-    var setup = false
-    var shrunk = false
+    var setup = false // For initial model rotation
+    var shrunk = false // For angle text animation after recording
     var recording = false
-    var readingsSum = 0.0
-    var numReadings = 0
-    var successfulReadings = 0
+    var readingsSum = 0.0 // Sum of angles read in current recording session
+    var numReadings = 0 // Number of angles read in current recording session
+    var successfulReadings = 0 // Number of angles read in current recording session within the ideal range
     
     
     @IBOutlet weak var torsoArms: UIImageView!
@@ -54,22 +53,25 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
         manager = CBCentralManager(delegate: self, queue: nil);
         
         customiseNavigationBar()
+        // Add torso to UI in rendering mode so it can change color
         let image:UIImage = UIImage(named: "Torso.png")!
         let templateImage = image.withRenderingMode(.alwaysTemplate)
         visualizer.image = templateImage
+        // Make the torso grey until connected to jacket via bluetooth
         visualizer.tintColor = UIColor(hue: 0, saturation: 0, brightness: 0.33, alpha: 1.0) /* #434343 */
+        // Set the default rotation of the torso to whatever the minimum ideal range value is
         rotate(degrees: CGFloat(truncating: NSNumber(value: min)))
+        // Hide the record button and readouts until connected to jacket via bluetooth
         recordButtonObject.isHidden = true
         avgAngle.isHidden = true
         avgAngleLabel.isHidden = true
         timeGreen.isHidden = true
         timeGreenLabel.isHidden = true
-        
+        // Adjust the size of the currentAngle label on the UI to avoid blurriness
         var t1 = CGAffineTransform.identity
         t1 = t1.translatedBy(x: 0.0, y: 20.0)
         var t2 = CGAffineTransform.identity
         t2 = t2.translatedBy(x: 0.0, y: 40.0)
-        
         UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: { () -> Void in
             self.currentAngleLabel.transform = t1
         })
@@ -104,14 +106,7 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
         // Initialize it with the button just created
         rightBarButton.customView = rightButton
         self.navigationItem.rightBarButtonItem = rightBarButton
-        
-        /* Add logo to navigation bar
-        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
-        imageView.contentMode = .scaleAspectFit // .center .scaleAspectFit
-        let image = UIImage(named: "LogoVectorLarge")
-        imageView.image = image
-        navigationItem.titleView = imageView */
-        
+        // Add the logo to the nav bar
         let imageView = UIImageView(image: UIImage(named: "LogoVectorLarge"))
         imageView.contentMode = UIViewContentMode.scaleAspectFit
         let titleView = UIView(frame: CGRect(x: 0, y: 0, width: 38, height: 38))
@@ -122,11 +117,11 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
+        // Setup for transition to the bluetooth scan screen
         if (segue.identifier == "scan-segue") {
             let scanController : ScanTableViewController = segue.destination as! ScanTableViewController
             
-            //set the manager's delegate to the scan view so it can call relevant connection methods
+            // Set the manager's delegate to the scan view so it can call relevant connection methods
             manager?.delegate = scanController
             scanController.manager = manager
             scanController.parentView = self
@@ -136,6 +131,7 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
     
     // MARK: Button Methods
     @objc func scanButtonPressed() {
+        // Switch views to the bluetooth scan screen
         performSegue(withIdentifier: "scan-segue", sender: nil)
     }
     
@@ -159,11 +155,16 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
         // Reset and hide avgAngle and timeGreen on disconnect
         avgAngle.text = "..."
         timeGreen.text = "..."
-        //self.timeGreen.textColor = UIColor.darkGray
         avgAngle.isHidden = true
         avgAngleLabel.isHidden = true
         timeGreen.isHidden = true
         timeGreenLabel.isHidden = true
+        // Reset all record values (in case of disconnect while recording)
+        self.numReadings = 0
+        self.readingsSum = 0.0
+        self.successfulReadings = 0
+        recording = false
+        // Reset currentAngle label to take up more screen space
         if(shrunk){
             var t1 = CGAffineTransform.identity
             t1 = t1.scaledBy(x: 1.0, y: 1.0)
@@ -185,19 +186,19 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
     }
     
     @objc func recordButton(_ sender: UIButton) {
-        // User pressed button to start recording
-        if(!recording){
+        if(!recording){ // User pressed button to start recording
             recording = true
+            // Make the record button red
             sender.tintColor = redColor
+            // Reset the data readout labels
             avgAngle.text = "..."
             timeGreen.text = "..."
-            //self.timeGreen.textColor = UIColor.darkGray
-            
+            // Hide the data readout labels if they're visible
             avgAngle.isHidden = true
             avgAngleLabel.isHidden = true
             timeGreen.isHidden = true
             timeGreenLabel.isHidden = true
-            
+            // Make the currentAngle label take up more screen
             if(shrunk){
                 var t1 = CGAffineTransform.identity
                 t1 = t1.scaledBy(x: 1.0, y: 1.0)
@@ -215,13 +216,13 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
             }
         }else{ // User pressed button to stop recording
             recording = false
+            // Make the currentAngle label take up less screen to make space for the data readout labels
             var t1 = CGAffineTransform.identity
             t1 = t1.scaledBy(x: 0.4, y: 0.4)
             t1 = t1.translatedBy(x: 0.0, y: -20.0)
             var t2 = CGAffineTransform.identity
             t2 = t2.scaledBy(x: 0.4, y: 0.4)
             t2 = t2.translatedBy(x: 0.0, y: -30.0)
-            
             UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseInOut, animations: { () -> Void in
                 self.currentAngleLabel.transform = t1
             })
@@ -229,35 +230,32 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
                 self.currentAngle.transform = t2
             })
             shrunk = true
-            
+            // Make the data readout labels visible
             avgAngle.isHidden = false
             avgAngleLabel.isHidden = false
             timeGreen.isHidden = false
             timeGreenLabel.isHidden = false
+            // Change the record button back to grey
             sender.tintColor = UIColor.darkGray
-            
+            // Calculate average tilt for that record session
             var avgTilt = 0.0
             if(numReadings != 0){
                 avgTilt = readingsSum/Double(numReadings)
             }
             avgTilt = Double(round(100*avgTilt)/100)
             let avgTiltText = String(avgTilt) + "°"
+            // Update the average tilt data readout
             self.avgAngle.text = avgTiltText
-            /* ASK: Change text color based on avg success/fail
-            if(avgTilt > min && avgTilt < max){
-                self.avgAngle.textColor = greenColor
-            } else {
-                self.avgAngle.textColor = redColor
-            }*/
-            
+            // Calculate the percentage of successful readings
             var avgSuccess = 0.0
             if(numReadings != 0){
                 avgSuccess = Double(successfulReadings)/Double(numReadings)
             }
             avgSuccess = Double(round(100*avgSuccess))
             let avgSuccessText = String(avgSuccess) + "%"
+            // Update the average successes data readout
             self.timeGreen.text = avgSuccessText
-            
+            // Reset recording data for next recording session
             self.numReadings = 0
             self.readingsSum = 0.0
             self.successfulReadings = 0
@@ -278,50 +276,40 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
     
     // MARK: CBPeripheralDelegate Methods
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
-        
         for service in peripheral.services! {
-            
             print("Service found with UUID: " + service.uuid.uuidString)
             
-            //device information service
+            // Device information service
             if (service.uuid.uuidString == "180A") {
                 peripheral.discoverCharacteristics(nil, for: service)
             }
             
-            //GAP (Generic Access Profile) for Device Name
+            // GAP (Generic Access Profile) for Device Name
             // This replaces the deprecated CBUUIDGenericAccessProfileString
             if (service.uuid.uuidString == "1800") {
                 peripheral.discoverCharacteristics(nil, for: service)
             }
             
-            //Jank Arduino bluetooth device Service
+            // Arduino bluetooth device Service
             if (service.uuid.uuidString == BLEService) {
                 peripheral.discoverCharacteristics(nil, for: service)
             }
-            
         }
     }
     
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
-
-        //get device name
+        // Get device name
         if (service.uuid.uuidString == "1800") {
-            
             for characteristic in service.characteristics! {
-                
                 if (characteristic.uuid.uuidString == "2A00") {
                     peripheral.readValue(for: characteristic)
                     print("Found Device Name Characteristic")
                 }
-                
             }
-            
         }
         
         if (service.uuid.uuidString == "180A") {
-            
             for characteristic in service.characteristics! {
-                
                 if (characteristic.uuid.uuidString == "2A29") {
                     peripheral.readValue(for: characteristic)
                     print("Found a Device Manufacturer Name Characteristic")
@@ -329,35 +317,27 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
                     peripheral.readValue(for: characteristic)
                     print("Found System ID")
                 }
-                
             }
-            
         }
         
         if (service.uuid.uuidString == BLEService) {
-            
             for characteristic in service.characteristics! {
-                
                 if (characteristic.uuid.uuidString == BLECharacteristic) {
-                    //we'll save the reference, we need it to write data
+                    // We'll save the reference, we need it to write data
                     mainCharacteristic = characteristic
-                    
-                    //Set Notify is useful to read incoming data async
+                    // Set Notify is useful to read incoming data async
                     peripheral.setNotifyValue(true, for: characteristic)
                     print("Found Arduino Data Characteristic")
-                    visualizer.tintColor = redColor // HERE AHHHHH
+                    // Make the graphic red
+                    visualizer.tintColor = redColor
+                    // Make the record button visible
                     recordButtonObject.isHidden = false
                 }
-                
             }
-            
         }
-        
     }
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
-        
-        
         if (characteristic.uuid.uuidString == "2A00") {
             //value for device name recieved
             let deviceName = characteristic.value
@@ -373,23 +353,28 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
         } else if (characteristic.uuid.uuidString == BLECharacteristic) {
             //data recieved
             if(characteristic.value != nil) {
+                // Read value from bluetooth and convert it to string
                 let tempVal = characteristic.value!
                 let stringValue = String(data: tempVal, encoding: String.Encoding.utf8)!
-                
+                // Split it into change in degrees and current degree measurements
                 let dataArr = stringValue.components(separatedBy: [","]).filter({!$0.isEmpty})
                 let changeString: String = dataArr[0]
                 let degString: String = dataArr[1]
-                
+                // Update currentAngle label on app main view
                 currentAngle.text = degString
                 guard let change = NumberFormatter().number(from: changeString) else { return }
                 guard let deg = NumberFormatter().number(from: degString) else { return }
-                /* ASK: Limit forward lean to 30 deg
+                
+                /* Code to limit forward lean to 30 deg so model doesn't lean off the screen
                 if(Int(truncating: deg) < 30){
                     deg = 30
                 }*/
-                let rad = CGFloat(truncating: change) * CGFloat.pi / 180
                 
+                // Convert change to radians.
+                let rad = CGFloat(truncating: change) * CGFloat.pi / 180
+                // If this is the first reading from the accelerometer
                 if(!setup){
+                    // Adjust the model to start at whatever angle the accelerometer is currently at
                     let setRad = CGFloat(truncating: deg) / 180.0 * CGFloat.pi
                     UIView.animate(withDuration: 0.5, delay: 0, options: .curveLinear, animations: { () -> Void in
                         self.visualizer.transform = CGAffineTransform(rotationAngle: setRad)
@@ -397,9 +382,9 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
                     UIView.animate(withDuration: 0.5, delay: 0, options: .curveLinear, animations: { () -> Void in
                         self.torsoArms.transform = CGAffineTransform(rotationAngle: setRad)
                     })
-                    //rotate(degrees: CGFloat(truncating: deg))
                     setup = true
                 }else{
+                    // Animate the model rotating by however many degrees the accelerometer has changed since its last reading
                     UIView.animate(withDuration: 1.0, delay: 0, options: .curveLinear, animations: { () -> Void in
                         self.visualizer.transform = self.visualizer.transform.rotated(by: rad)
                     })
@@ -408,11 +393,13 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
                     })
                 }
                 
+                // Count this data as part of the current recording session if the user has hit record
                 if(recording){
                     readingsSum += Double(truncating: deg)
                     numReadings += 1
                 }
                 
+                // Update the torso color to either green or red based on whether or not the user is within the ideal leaning range
                 if(Double(truncating: deg) > min && Double(truncating: deg) < max){
                     visualizer.tintColor = greenColor
                     if(recording){
@@ -421,7 +408,6 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
                 } else {
                     visualizer.tintColor = redColor
                 }
-                orientation = Double(truncating: deg)
             }
         }
         
