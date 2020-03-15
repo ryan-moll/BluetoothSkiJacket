@@ -10,7 +10,7 @@
         <!--Main View Controller-->
         <scene sceneID="3l9-QK-tAN">
             <objects>
-                <viewController id="9Pu-vz-22V" customClass="MainViewController" customModule="SkiJacket" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="9Pu-vz-22V" customClass="MainViewController" customModule="Glide" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="dMi-f7-hVa"/>
                         <viewControllerLayoutGuide type="bottom" id="bQj-Tb-Mkf"/>
@@ -147,7 +147,7 @@
         <!--Scan Table View Controller-->
         <scene sceneID="oYz-Hf-bmk">
             <objects>
-                <tableViewController id="XZM-Me-sXn" customClass="ScanTableViewController" customModule="SkiJacket" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="XZM-Me-sXn" customClass="ScanTableViewController" customModule="Glide" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="x85-ue-dlL">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

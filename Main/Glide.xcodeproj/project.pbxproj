@@ -14,10 +14,10 @@
 		785098961D365E8E00976091 /* ScanTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 785098951D365E8E00976091 /* ScanTableViewController.swift */; };
 		785098991D36607500976091 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 785098981D36607500976091 /* CoreBluetooth.framework */; };
 		D20F43BA241C5562003A3572 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D20F43B9241C5562003A3572 /* Assets.xcassets */; };
-		D22C958424175D55006F57C6 /* Torso.png in Resources */ = {isa = PBXBuildFile; fileRef = D22C958324175D55006F57C6 /* Torso.png */; };
-		D22C958A24178DF4006F57C6 /* Legs.png in Resources */ = {isa = PBXBuildFile; fileRef = D22C958924178DF4006F57C6 /* Legs.png */; };
-		D25C660A2418C47D00F6294D /* TorsoArms.png in Resources */ = {isa = PBXBuildFile; fileRef = D25C66092418C47D00F6294D /* TorsoArms.png */; };
-		D2E1A3BA24185FDD002B8243 /* LogoVectorLarge.png in Resources */ = {isa = PBXBuildFile; fileRef = D2E1A3B924185FDD002B8243 /* LogoVectorLarge.png */; };
+		D235F50C241EAA41005892D2 /* Legs.png in Resources */ = {isa = PBXBuildFile; fileRef = D235F508241EAA41005892D2 /* Legs.png */; };
+		D235F50D241EAA41005892D2 /* TorsoArms.png in Resources */ = {isa = PBXBuildFile; fileRef = D235F509241EAA41005892D2 /* TorsoArms.png */; };
+		D235F50E241EAA41005892D2 /* Torso.png in Resources */ = {isa = PBXBuildFile; fileRef = D235F50A241EAA41005892D2 /* Torso.png */; };
+		D235F50F241EAA41005892D2 /* LogoVectorLarge.png in Resources */ = {isa = PBXBuildFile; fileRef = D235F50B241EAA41005892D2 /* LogoVectorLarge.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,10 +30,10 @@
 		785098951D365E8E00976091 /* ScanTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanTableViewController.swift; sourceTree = "<group>"; };
 		785098981D36607500976091 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		D20F43B9241C5562003A3572 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		D22C958324175D55006F57C6 /* Torso.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Torso.png; path = ../Torso.png; sourceTree = "<group>"; };
-		D22C958924178DF4006F57C6 /* Legs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Legs.png; path = ../Legs.png; sourceTree = "<group>"; };
-		D25C66092418C47D00F6294D /* TorsoArms.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TorsoArms.png; path = ../TorsoArms.png; sourceTree = "<group>"; };
-		D2E1A3B924185FDD002B8243 /* LogoVectorLarge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LogoVectorLarge.png; path = ../LogoVectorLarge.png; sourceTree = "<group>"; };
+		D235F508241EAA41005892D2 /* Legs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Legs.png; path = ../Assets/Legs.png; sourceTree = "<group>"; };
+		D235F509241EAA41005892D2 /* TorsoArms.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TorsoArms.png; path = ../Assets/TorsoArms.png; sourceTree = "<group>"; };
+		D235F50A241EAA41005892D2 /* Torso.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Torso.png; path = ../Assets/Torso.png; sourceTree = "<group>"; };
+		D235F50B241EAA41005892D2 /* LogoVectorLarge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LogoVectorLarge.png; path = ../Assets/LogoVectorLarge.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,10 +82,10 @@
 		785098971D36607500976091 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D22C958324175D55006F57C6 /* Torso.png */,
-				D22C958924178DF4006F57C6 /* Legs.png */,
-				D25C66092418C47D00F6294D /* TorsoArms.png */,
-				D2E1A3B924185FDD002B8243 /* LogoVectorLarge.png */,
+				D235F50B241EAA41005892D2 /* LogoVectorLarge.png */,
+				D235F50A241EAA41005892D2 /* Torso.png */,
+				D235F508241EAA41005892D2 /* Legs.png */,
+				D235F509241EAA41005892D2 /* TorsoArms.png */,
 				785098981D36607500976091 /* CoreBluetooth.framework */,
 			);
 			name = Frameworks;
@@ -154,12 +154,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D235F50F241EAA41005892D2 /* LogoVectorLarge.png in Resources */,
+				D235F50D241EAA41005892D2 /* TorsoArms.png in Resources */,
+				D235F50E241EAA41005892D2 /* Torso.png in Resources */,
 				7850988E1D365ADD00976091 /* LaunchScreen.storyboard in Resources */,
-				D22C958424175D55006F57C6 /* Torso.png in Resources */,
 				D20F43BA241C5562003A3572 /* Assets.xcassets in Resources */,
-				D25C660A2418C47D00F6294D /* TorsoArms.png in Resources */,
-				D2E1A3BA24185FDD002B8243 /* LogoVectorLarge.png in Resources */,
-				D22C958A24178DF4006F57C6 /* Legs.png in Resources */,
+				D235F50C241EAA41005892D2 /* Legs.png in Resources */,
 				785098891D365ADD00976091 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
