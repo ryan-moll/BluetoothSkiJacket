@@ -1,4 +1,7 @@
 # Bluetooth Ski Jacket
+
+<img src="https://raw.githubusercontent.com/ryan-moll/BluetoothSkiJacket/master/Results/DSC08486-74.jpg" width=300>
+
 ___
 ## Summary
 + This project is a ski jacket that contains sensors which allow the user to see if they have suitable skiing form via a companion app.
